@@ -44,11 +44,17 @@
         class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0"
         >Profile</a
       >
-      <a
+      {% comment %} <a
         href="{% url 'logout' %}"
         class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0"
         >Logout</a
-      >
+      > {% endcomment %}
+
+      <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0" >logout</button>
+      </form>
+
     </div>
     {% else %}
     <div class="text-md lg:flex-grow"></div>
