@@ -1,0 +1,178 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+
+<div class="flex flex-wrap px-2 py-3 mx-5 items-center">
+  <div class="w-full md:w-1/2">
+    <h1 class="text-3xl mb-2">
+      <b class="">Welcome to Covid Plus</b>
+    </h1>
+
+    <p class="mb-4 mt-5">
+    We extend a warm and hearty welcome to you! At Covid Plus, we are on a mission to provide you with valuable information and resources that empower you on your journey to health and wellness. Explore our platform to discover insights on vaccinations, stay informed about health practices, and join our community in fostering a safer and healthier world. Your well-being is our priority, and we invite you to navigate through our content, participate in discussions, and embark on a path to a healthier future together. Thank you for choosing Covid Plus. Let's build a healthier world, one step at a time!
+    </p>
+    <button
+      class="hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    >
+      Get Started
+    </button>
+  </div>
+
+  <div class="w-full md:w-1/2">
+    <img
+      class="w-full p-5 mx-5"
+      src="{% static 'about.png' %}"
+      alt="image"
+    />
+  </div>
+</div>
+
+ <!--All Campaign section-->
+
+<div class="flex flex-wrap justify-center p-4 mb-10">
+  <div class="p-3">
+    <h1 class="font-bold text-3xl text-center pb-5 ">
+      All Campaign
+    </h1>
+    <div class="flex flex-wrap pt-5 mb-5">
+      {% for c in campaigns %}
+      <div class="w-1/4 p-2 min-h-full">
+        <div style='background-color:#DDE6ED; color:#27374D;' class=" rounded-lg overflow-hidden shadow-lg">
+          <img style='height: 240px;'
+            src="{{ c.image.url }}"
+            class="w-full h-1/2 object-cover"
+            alt="image"
+          />
+          <div class="p-4">
+            <h5 class="text-xl font-bold">
+              <a href="" class="text-blue-900">{{ c.name }}</a>
+            </h5>
+            <p><b>Start Date:</b> {{ c.start_date }}</p>
+            <p><b>End Date:</b> {{ c.end_date }}</p>
+            <p class="mb-4">
+              {{ c.description|truncatewords:15 }}
+            </p>
+            {% if request.user.is_authenticated %}
+            <button class='hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
+              <a
+                href={% url 'vaccine_list'%}
+                >Vaccine List</a
+              >
+            </button>
+            <a
+              href={% url 'campaign_review' c.id %}
+              class="bg-black hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >Give Review</a
+            >
+            {% else %}
+            <button  class="hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              <a
+                href={% url 'login' %}
+                >Vaccine List</a
+              >
+            </button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+ <!--Patient Review section-->
+
+<div class='mb-20 mx-10'>
+  <h1 class="font-bold text-3xl text-center pb-5 mt-3">
+    Patient Reviews
+  </h1>
+   <p class="text-gray-700 text-center mb-5 pb-4">
+    Explore the experiences of our patients and their journey to better health through vaccination.Their stories highlight the <br> positive impact of immunization and inspire others to prioritize wellness. Join the community <br> of individuals committed to creating a healthier world through vaccination.
+   </p>
+    {% if reviews %}
+    <div class="reviews swiffy-slider slider-item-show3 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
+    <ul id="review-slider" class="slider-container py-4">
+      {% for review in reviews %}
+        <li>
+          <div class="w-4/4 p-2 min-h-full">
+            <div style='background-color:#526D82; color:#DDE6ED;' class="rounded-lg overflow-hidden shadow-lg">
+              <div class="p-4">
+                <h5 class="text-xl font-bold">
+                  <h2 class="text-xl font-bold">
+                    {{review.reviwer.first_name}} {{review.reviwer.last_name}}
+                  </h2>
+                </h5>
+                <p><b>Date:</b> {{ review.created }}</p>
+                <p><b>Campaign:</b> {{ review.campaign.name }}</p>
+                <p><b>Rating:</b> {{ review.rating }}</p>
+                <p class=" mb-4">{{ review.comment|truncatewords:10 }}</p>
+              </div>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <button type="button" class="slider-nav" aria-label="Go left"></button>
+    <button type="button" class="slider-nav slider-nav-next" aria-label="Go left"></button>
+
+    <div class="slider-indicators">
+      {% for review in reviews %}
+        <button aria-label="Go to slide"></button>
+      {% endfor %}
+    </div>
+   </div>
+   {% else %}
+  <p class="font-bold text-xl text-center text-blue-900 pb-5 mt-3">
+    No reviews available for this campaign.
+  </p>
+   {% endif %}
+
+</div>
+
+
+ <!--About Us section-->
+
+ <!-- About Us section -->
+<div class="flex flex-wrap px-2 py-3 m-5 items-center rounded-lg overflow-hidden shadow-lg mb-20">
+   <div class="w-full md:w-1/2">
+    <img
+      class="w-full p-5 m-4 mx-5"
+      src="{% static 'about2.png' %}"
+      alt="image"
+    />
+  </div>
+  <div class="w-full md:w-1/2">
+    <h1 class="text-3xl font-bold mb-2 mx-10">
+      About Us
+    </h1>
+
+    <h1 class="text-2xl font-bold my-4 mx-10 text-gray-700">
+      Empowering Health: Navigating <br />the Path to Vaccination Wellness
+    </h1>
+
+    <p class="mb-4 text-gray-700 mx-10">
+      We are dedicated to providing you with comprehensive and reliable
+      information on 
+      vaccinations, guiding you through the journey to better health. Our
+      mission is to empower individuals and communities with knowledge about
+      immunization, ensuring a safer and healthier future for all. Explore
+      our resources, stay informed, and join us in the collective effort
+      to promote wellness through vaccination. Together, let's build a shield of
+      protection for a 
+      healthier world.
+    </p>
+    <button
+      class="hover:bg-blue-900 text-white mx-10 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    >
+      Explore More
+    </button>
+  </div>
+
+  
+  </div>
+
+ 
+ </div>
+
+
+{% endblock %}
