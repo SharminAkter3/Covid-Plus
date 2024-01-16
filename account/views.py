@@ -38,11 +38,18 @@ class UserLoginView(LoginView):
         return super().form_valid(form)
 
 
+# class UserLogoutView(LogoutView):
+#     def get(self, request, *args, **kwargs):
+#         logout(self.request)
+#         messages.warning(self.request, "Logout Successfully!!")
+#         return HttpResponseRedirect(reverse_lazy("home"))
+
+
 class UserLogoutView(LogoutView):
-    def get(self, request, *args, **kwargs):
-        logout(self.request)
-        messages.warning(self.request, "Logout Successfully!!")
-        return HttpResponseRedirect(reverse_lazy("home"))
+    def get_success_url(self):
+        if self.request.user.is_authenticated:
+            logout(self.request)
+        return reverse_lazy("home")
 
 
 class UserAccountUpdateView(View):
