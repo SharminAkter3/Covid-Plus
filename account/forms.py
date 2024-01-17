@@ -85,7 +85,6 @@ class UserUpdateForm(forms.ModelForm):
     country = forms.CharField(max_length=100)
 
     role = forms.ChoiceField(choices=ROLE_CHOICES)
-    nid = forms.CharField(max_length=20)
 
     class Meta:
         model = User
@@ -119,7 +118,6 @@ class UserUpdateForm(forms.ModelForm):
                 self.fields["country"].initial = user_account.country
 
                 self.fields["role"].initial = user_account.role
-                self.fields["nid"].initial = user_account.nid
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -134,7 +132,6 @@ class UserUpdateForm(forms.ModelForm):
             user_account.country = self.cleaned_data["country"]
 
             user_account.role = self.cleaned_data["role"]
-            user_account.nid = self.cleaned_data["nid"]
             user_account.save()
 
         return user
