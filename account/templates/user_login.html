@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% block body %}
-<br />
+{% extends 'base.html' %} {% load static %} {% block body %}
 {% if form.non_field_errors %} {% for error in form.non_field_errors %}
 <div
   class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2"
@@ -9,15 +8,17 @@
   <p class="block sm:inline">{{ error }}</p>
 </div>
 {% endfor %} {% endif %}
-<div class="grid grid-cols-3 gap-4">
-  <div></div>
-  <div class="py-2 px-3 rounded-xl text-white mt-12">
-    <h1 class="font-bold text-3xl text-center pb-5">Please Login !!</h1>
-    <div class="w-full mt-10">
+<div class="flex flex-wrap px-2 py-3 m-5 items-center overflow-hidden my-20">
+  <div class="w-full md:w-1/2 p-5 rounded-lg">
+    <img class='' src="{% static 'login.png' %}" alt="img">
+  </div>
+  <div class="py-2 px-3 w-full md:w-1/2 rounded-xl grid-cols-6 text-white mt-12">
+    <div class="w-3/4 m-auto">
       <form
         method="post"
         class=" text-white shadow-md border border-gray-200 rounded px-8 pt-6 pb-8 mb-4"
       >
+       <h2 class="font-bold text-3xl text-center pb-5">Please Login !!</h2>
         {% csrf_token %} {% for hidden_field in form.hidden_fields %} {{
         hidden_field.errors }} {{ hidden_field }}
         <br />
@@ -42,12 +43,13 @@
 
         <div class="flex items-center justify-center w-full">
           <button
-            class="hover:bg-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            class="hover:bg-black w-3/4 m-auto mt-3 mb-3 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Log In
           </button>
         </div>
+        <p class='mx-20 my-2'>New to Covid Plus <a class='text-black font-bold' href="{% url 'register'%}">create new account</a></p>
       </form>
     </div>
   </div>

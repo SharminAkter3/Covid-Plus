@@ -21,21 +21,40 @@
     </button>
   </div>
   <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto px-10">
+    <div class="text-md">
+      <a
+        href="{% url 'home' %}"
+        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+        >Home</a
+      >
+      <a
+        href="{% url 'about' %}"
+        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+        >About Us</a
+      >
+      <a
+        href="{% url 'contact' %}"
+        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+        >Contact Us</a
+      >
+    </div>
+
     {% if request.user.is_authenticated %}
     <div class="text-md lg:flex-grow">
       <a
         href="{% url 'vaccine_list' %}"
-        class="mx-2 inline-block font-medium text-lg px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
         >Vaccine List</a
       >
       {% if request.user.account.role == "Doctor" %}
 
       <a
         href="{% url 'vaccine' %}"
-        class="mx-2 inline-block font-medium text-lg px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
         >Add Vaccine</a
       >
-      {% comment %} {% else %} {% endcomment %} {% endif %}
+      
+    {% endif %}
     </div>
 
     <div class="flex w-auto">
@@ -44,9 +63,9 @@
         class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0"
         >Profile</a
       >
-      <form method="post" action="{% url 'logout' %}">
+      <form method="post" class='rounded' action="{% url 'logout' %}">
       {% csrf_token %}
-      <button type="submit" class="bg-white mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0" >logout</button>
+      <button type="submit" class="bg-white inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0" >logout</button>
       </form>
 
     </div>
