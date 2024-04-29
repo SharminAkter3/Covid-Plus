@@ -1,84 +1,80 @@
-<nav
-  class="flex items-center justify-between flex-wrap p-6 px-10 shadow-lg"
->
+{% load static %}
+<script src="{% static 'js/navbarToggol.js' %}"></script>
+<nav class="flex items-center justify-between flex-wrap p-6 px-5 shadow-lg">
   <div class="flex items-center flex-shrink-0 text-white mr-6">
-    <span class="font-semibold text-2xl tracking-tight text-white"
-      ><a href="/">Covid Plus</a></span
-    >
+    <span class="font-bold text-3xl tracking-tight text-white"><a href="/">Covid Plus<a></span>
   </div>
   <div class="block lg:hidden">
-    <button
-      class="flex items-center px-3 py-2 border rounded text-white border-white-400 hover:text-white hover:border-white"
-    >
-      <svg
-        class="fill-current h-3 w-3"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+    <button id="menu-toggle" class="flex items-center px-3 py-2 border rounded text-white border-white-400 hover:text-white hover:border-white">
+      <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <title>Menu</title>
         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
       </svg>
     </button>
   </div>
-  <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto px-10">
-    <div class="text-md">
-      <a
-        href="{% url 'home' %}"
-        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
-        >Home</a
-      >
-      <a
+  <div id="menu" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto px-10">
+    <div class="text-md block lg:flex">
+      <div>
+        <a
+          href="{% url 'home' %}"
+          class="inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+          >Home</a
+        >
+      </div>
+     <div>
+     <a
         href="{% url 'about' %}"
-        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+        class="inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
         >About Us</a
-      >
-      <a
-        href="{% url 'contact' %}"
-        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
-        >Contact Us</a
-      >
+      ></div>
+       <div>
+        <a
+          href="{% url 'contact' %}"
+          class="inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+          >Contact Us</a
+        ></div>
     </div>
 
     {% if request.user.is_authenticated %}
-    <div class="text-md lg:flex-grow">
+    <div class="text-md block lg:flex">
+      <div>
       <a
         href="{% url 'vaccine_list' %}"
-        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+        class="inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
         >Vaccine List</a
-      >
+      ></div>
       {% if request.user.account.role == "Doctor" %}
 
+     <div>
       <a
         href="{% url 'vaccine' %}"
-        class="mx-2 inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
+        class="inline-block font-medium px-4 py-2 leading-none text-white hover:text-blue-500 mt-4 lg:mt-0"
         >Add Vaccine</a
       >
-      
-    {% endif %}
+     </div>
+     {% endif %}
     </div>
-
-    <div class="flex w-auto">
-      <a
-        href="{% url 'profile' %}"
-        class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0"
-        >Profile</a
-      >
-      <form method="post" class='rounded' action="{% url 'logout' %}">
-      {% csrf_token %}
-      <button type="submit" class="bg-white inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0" >logout</button>
-      </form>
-
-    </div>
+    <div class="text-md lg:flex-grow"></div>
+      <div class='ml-4 mt-4 lg:mt-0'>
+        <a href="{% url 'profile' %}" class="inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900">Profile</a>
+      </div>
+      <div class='ml-4 mt-4 lg:mt-0'>
+        <form method="post" action="{% url 'logout' %}" class='inline-block'>
+          {% csrf_token %}
+          <button type="submit" class="inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900">Logout</button>
+        </form>
+      </div>
+   
     {% else %}
     <div class="text-md lg:flex-grow"></div>
-    <div>
+    <div class="ml-4">
       <a
         href="{% url 'login' %}"
         class="mr-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0"
         >Login</a
       >
     </div>
-    <div>
+    <div class="ml-4">
       <a
         href="{% url 'register' %}"
         class="inline-block font-medium text-sm px-4 py-2 leading-none bg-white rounded text-blue-900 border-white hover:border-transparent hover:text-white hover:bg-blue-900 mt-4 lg:mt-0"
@@ -87,4 +83,9 @@
     </div>
     {% endif %}
   </div>
-</nav>
+</nav> 
+
+
+
+
+
